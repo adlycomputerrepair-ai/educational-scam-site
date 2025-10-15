@@ -5,20 +5,70 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Click the Link</title>
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#06b6d4;--text:#e6eef6}
-    html,body{height:100%;margin:0}
-    body{display:grid;place-items:center;background:linear-gradient(180deg,var(--bg),#071023);font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial}
-    .card{background:rgba(255,255,255,0.02);padding:36px;border-radius:16px;box-shadow:0 8px 30px rgba(2,6,23,0.6);text-align:center;min-width:260px}
-    a.launch{display:inline-block;padding:14px 22px;border-radius:10px;text-decoration:none;font-weight:700;color:var(--bg);background:var(--accent);box-shadow:0 6px 18px rgba(6,182,212,0.16)}
-    .message{font-size:clamp(18px,6vw,56px);font-weight:800;color:#ffefef;margin:0}
-    .small{color:#9fb3c8;margin-top:10px}
-    .back{display:inline-block;margin-top:18px;text-decoration:none;color:var(--accent)}
+    :root {
+      --accent: #06b6d4;
+      --text: #ffffff;
+    }
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: Inter, system-ui, sans-serif;
+      overflow: hidden;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, #0f1724, #071023);
+      flex-direction: column;
+      text-align: center;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 36px;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
+      min-width: 260px;
+    }
+    a.launch {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      color: #0f1724;
+      background: var(--accent);
+      box-shadow: 0 6px 18px rgba(6, 182, 212, 0.16);
+    }
+    .message {
+      font-size: clamp(24px, 8vw, 72px);
+      font-weight: 900;
+      color: var(--text);
+      text-shadow: 0 0 15px rgba(0,0,0,0.7);
+      margin: 0;
+    }
+    .back {
+      display: inline-block;
+      margin-top: 18px;
+      text-decoration: none;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .gif-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
   </style>
 </head>
 <body>
   <div class="card" id="card">
     <h1 style="margin:0 0 14px 0;color:var(--text)">A link to a message</h1>
-    <p class="small">This page contains a single link. Click it to reveal the text.</p>
+    <p style="color:#9fb3c8">This page contains a single link. Click it to reveal the text.</p>
     <a href="#" class="launch" id="launch">Open link</a>
   </div>
 
@@ -28,21 +78,15 @@
 
     launch.addEventListener('click', (e) => {
       e.preventDefault();
-      // Replace page contents with the target text
-      document.documentElement.style.background = '#000';
       document.body.innerHTML = `
-        <main style="min-height:100vh;display:grid;place-items:center;padding:24px;background:#000;">
-          <div style="text-align:center;max-width:900px;">
-            <p class="message">LOL you got scammed</p>
-            <a class="back" href="javascript:location.reload()">Go back</a>
-          </div>
+        <video autoplay loop muted playsinline class="gif-bg">
+          <source src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.mp4" type="video/mp4">
+        </video>
+        <main style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+          <p class="message">LOL you got scammed</p>
+          <a class="back" href="javascript:location.reload()">Go back</a>
         </main>
       `;
-      // For accessibility, focus the message
-      setTimeout(()=>{
-        const msg = document.querySelector('.message');
-        if(msg) msg.setAttribute('tabindex','-1') && msg.focus();
-      },50);
     });
   </script>
 </body>
